@@ -64,6 +64,7 @@ public class MyArrayList {
             }
         }
 
+
         System.out.println("Result is: " + result);
     }
 }

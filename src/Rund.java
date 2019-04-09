@@ -3,6 +3,7 @@ public class Rund {
 
             max -= min;
 
+
             return (int) (Math.random() * max + 1) + min;
         }
 }

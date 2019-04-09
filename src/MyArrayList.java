@@ -54,6 +54,7 @@ public class MyArrayList {
                 result.add(res);
 
             }
+
             if (i >= list1.size()) {
                 res = list2.get(i);
                 result.add(res);

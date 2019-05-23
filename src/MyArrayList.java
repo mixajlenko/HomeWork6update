@@ -1,63 +1,36 @@
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-
+import java.util.*;
 
 public class MyArrayList {
-
-
     public static void main(String[] args) {
 
+        List<Integer> listM = new LinkedList<>();
+        List<Integer> listN = new LinkedList<>();
 
-        // List<Integer> list1 = new ArrayList<>();
-        // List<Integer> list2 = new ArrayList<>();
-        // List result = new ArrayList();
+        for (int i = 0; i < 10; i++) {
+            listM.add(getRandomValue(100, 200));
+            ListWithoutDuplicates(listM); //тут находиться имплементация метода для удаления дубликатов.
+        }
 
+        for (int i = 0; i < 10; i++) {
+            listN.add(getRandomValue(100, 200));
+            ListWithoutDuplicates(listN); //тут находиться имплементация метода для удаления дубликатов.
+        }
 
-        Rund M = new Rund();
-        Rund N = new Rund();
+        System.out.println("First list is: " + listM);
+        System.out.println("Second list is: " + listN);
 
-
-        List<Integer> list1 = new LinkedList<>();
-
-        list1.add(M.getRandomValue(100, 200));
-        list1.add(M.getRandomValue(100, 200));
-        list1.add(M.getRandomValue(100, 200));
-        list1.add(M.getRandomValue(100, 200));
-        list1.add(M.getRandomValue(100, 200));
-        list1.add(M.getRandomValue(100, 200));
-        list1.add(M.getRandomValue(100, 200));
-        list1.add(M.getRandomValue(100, 200));
-        list1.add(M.getRandomValue(100, 200));
-
-        List<Integer> list2 = new LinkedList<>();
-
-        list2.add(N.getRandomValue(100, 200));
-        list2.add(N.getRandomValue(100, 200));
-        list2.add(N.getRandomValue(100, 200));
-        //list2.add(N.getRandomValue(100, 200));
-
-
-        System.out.println("First list is: " + list1);
-        System.out.println("Second list is: " + list2);
-
-
-        int maxSize = Math.max(list2.size(), list1.size());
+        int maxSize = Math.max(listN.size(), listM.size());
 
         List<Integer> result = new ArrayList<>(maxSize);
 
-        /*
-          Цикл умножения элементов одного списка на элементы другого.
-         */
         for (int i = 0; i < maxSize; i++) {
             int res;
-            if (i < list1.size() && i < list2.size()) {
-                res = list1.get(i) * list2.get(i);
-            } else if (i >= list1.size()) {
-                res = list2.get(i);
+            if (i < listM.size() && i < listN.size()) {
+                res = listM.get(i) * listN.get(i);
+            } else if (i >= listM.size()) {
+                res = listN.get(i);
             } else {
-                res = list1.get(i);
+                res = listM.get(i);
             }
             result.add(res);
         }
@@ -65,13 +38,13 @@ public class MyArrayList {
         System.out.println("Result is: " + result);
 /**
  *
- * Создал третий список и поместил в неё сотню рандомных чисел.
+ * Создал третий список и поместил в него сотню рандомных чисел.
  *
  */
         List<Integer> list3 = new LinkedList<>();
         int i;
         for (i = 0; i < 100; i++) {
-            list3.add(Rund.getRandomValue(0, 100));
+            list3.add(getRandomValue(0, 100));
         }
 
         System.out.println("Third list with 100 elements is: " + list3);
@@ -105,11 +78,26 @@ public class MyArrayList {
         }
         System.out.println("List with odd only: " + list3);
     }
-}
 
-//замена итератору.
-/*list3.removeIf(number -> number % 2 == 0);
-        System.out.println("List with odd only: " + list3);*/
+    private static int getRandomValue(int min, int max) {
+        max -= min;
+        return (int) (Math.random() * max + 1) + min;
+    }
+
+    private static void ListWithoutDuplicates(List<Integer> list) {
+        int size = list.size();
+
+        for (int i = 0; i < size - 1; i++) {
+            for (int j = i + 1; j < size; j++) {
+                if (!list.get(j).equals(list.get(i)))
+                    continue;
+                list.remove(j);
+                j--;
+                size--;
+            }
+        }
+    }
+}
 
 
 

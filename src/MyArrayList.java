@@ -1,47 +1,31 @@
 import java.util.*;
 
-public class MyArrayList {
+public class MyArrayList<T> extends CustomList<T> {
+
     public static void main(String[] args) {
 
-        List<Integer> listM = new LinkedList<>();
-        List<Integer> listN = new LinkedList<>();
+
+        Custom<Object> listM = new CustomList<>();
+        Custom<Object> listN = new CustomList<>();
 
         for (int i = 0; i < 10; i++) {
-            listM.add(getRandomValue(100, 200));
-            ListWithoutDuplicates(listM); //тут находиться имплементация метода для удаления дубликатов.
+            listM.add(getRandomValue(1, 10));
         }
 
         for (int i = 0; i < 10; i++) {
-            listN.add(getRandomValue(100, 200));
-            ListWithoutDuplicates(listN); //тут находиться имплементация метода для удаления дубликатов.
+            listN.add(getRandomValue(1, 10));
         }
 
         System.out.println("First list is: " + listM);
         System.out.println("Second list is: " + listN);
 
-        int maxSize = Math.max(listN.size(), listM.size());
-
-        List<Integer> result = new ArrayList<>(maxSize);
-
-        for (int i = 0; i < maxSize; i++) {
-            int res;
-            if (i < listM.size() && i < listN.size()) {
-                res = listM.get(i) * listN.get(i);
-            } else if (i >= listM.size()) {
-                res = listN.get(i);
-            } else {
-                res = listM.get(i);
-            }
-            result.add(res);
-        }
-
-        System.out.println("Result is: " + result);
+        MyArrayList.multiplie(listM, listN);
 /**
  *
  * Создал третий список и поместил в него сотню рандомных чисел.
  *
  */
-        List<Integer> list3 = new LinkedList<>();
+        Custom<Integer> list3 = new CustomList<>();
         int i;
         for (i = 0; i < 100; i++) {
             list3.add(getRandomValue(0, 100));
@@ -70,7 +54,7 @@ public class MyArrayList {
          * Удаление четных чисел с помощью итератора.
          *
          */
-        for (Iterator<Integer> iterator = list3.iterator(); iterator.hasNext(); ) {
+        for (ArrayIterator<Integer> iterator = (ArrayIterator<Integer>) list3.iterator(); iterator.hasNext(); ) {
             Integer number = iterator.next();
             if (number % 2 == 0) {
                 iterator.remove();
@@ -84,20 +68,28 @@ public class MyArrayList {
         return (int) (Math.random() * max + 1) + min;
     }
 
-    private static void ListWithoutDuplicates(List<Integer> list) {
-        int size = list.size();
+    public static<T> void multiplie(Custom<T> first, Custom<T> second){
 
-        for (int i = 0; i < size - 1; i++) {
-            for (int j = i + 1; j < size; j++) {
-                if (!list.get(j).equals(list.get(i)))
-                    continue;
-                list.remove(j);
-                j--;
-                size--;
+        int maxSize = Math.max(first.size(), second.size());
+
+        Custom<Object> result = new CustomList<>(maxSize);
+
+        for (int i = 0; i < maxSize; i++) {
+            int res;
+            if (i < first.size() && i < second.size()) {
+                res = (int) first.get(i) * (int) second.get(i);
+            } else if (i >= first.size()) {
+                res = (int) second.get(i);
+            } else {
+                res = (int) first.get(i);
             }
+            result.add(res);
         }
+
+        System.out.println("Result is: " + result);
     }
 }
+
 
 
 

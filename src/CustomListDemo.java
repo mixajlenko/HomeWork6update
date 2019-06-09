@@ -1,25 +1,22 @@
-import java.util.*;
-
-public class MyArrayList<T> extends CustomList<T> {
+public class CustomListDemo<T> extends CustomList<T> {
 
     public static void main(String[] args) {
-
 
         Custom<Object> listM = new CustomList<>();
         Custom<Object> listN = new CustomList<>();
 
         for (int i = 0; i < 10; i++) {
-            listM.add(getRandomValue(1, 10));
+            listM.add(RundomValue.getRandomValue(1, 10));
         }
 
         for (int i = 0; i < 10; i++) {
-            listN.add(getRandomValue(1, 10));
+            listN.add(RundomValue.getRandomValue(1, 10));
         }
 
         System.out.println("First list is: " + listM);
         System.out.println("Second list is: " + listN);
 
-        MyArrayList.multiplie(listM, listN);
+        CustomListDemo.multiplie(listM, listN);
 /**
  *
  * Создал третий список и поместил в него сотню рандомных чисел.
@@ -28,7 +25,7 @@ public class MyArrayList<T> extends CustomList<T> {
         Custom<Integer> list3 = new CustomList<>();
         int i;
         for (i = 0; i < 100; i++) {
-            list3.add(getRandomValue(0, 100));
+            list3.add(RundomValue.getRandomValue(0, 100));
         }
 
         System.out.println("Third list with 100 elements is: " + list3);
@@ -63,16 +60,11 @@ public class MyArrayList<T> extends CustomList<T> {
         System.out.println("List with odd only: " + list3);
     }
 
-    private static int getRandomValue(int min, int max) {
-        max -= min;
-        return (int) (Math.random() * max + 1) + min;
-    }
-
     public static<T> void multiplie(Custom<T> first, Custom<T> second){
 
         int maxSize = Math.max(first.size(), second.size());
 
-        Custom<Object> result = new CustomList<>(maxSize);
+        Custom<Object> result = new CustomList<>();
 
         for (int i = 0; i < maxSize; i++) {
             int res;

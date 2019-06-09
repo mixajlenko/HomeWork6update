@@ -5,40 +5,23 @@ import java.util.Iterator;
 public class CustomList<T> implements Custom<T> {
 
     private T[] values;
-    private int counter = 0;
-    private boolean duplicate = false;
 
     public CustomList() {
         values = (T[]) new Object[0];
     }
 
-    public CustomList(int initialSize){     //два конструктора(?) нужна помощь.
-        values = (T[]) new Object[0];
-    }
-
     @Override
     public boolean add(T t) {
-        try {
-            T[] temp = values;
-            if (counter == 0) {
-                dinamic(temp, t);
-                counter += 1;
-            } else if (counter > 0) {
+            if (values.length == 0) {
+                dynamic( t);
+            } else  {
                 if (contains(values, t)) {
-                    duplicate = true;
-                }
-                if (!duplicate) {
-                    dinamic(temp, t);
-                } else {
-                    duplicate = false;
                     return false;
+                } else {
+                    dynamic(t);
                 }
             }
             return true;
-        } catch (ClassCastException ex) {
-            ex.printStackTrace();
-        }
-        return false;
     }
 
     @Override
@@ -69,10 +52,11 @@ public class CustomList<T> implements Custom<T> {
         values[index] = t;
     }
 
-    public void dinamic(T[] a, T t) {
-        values = (T[]) new Object[a.length + 1];
-        System.arraycopy(a, 0, values, 0, a.length);
-        values[values.length - 1] = t;
+    public void dynamic(T t) {
+        T[] temp = (T[]) new Object[values.length + 1];
+        System.arraycopy(values, 0, temp, 0, values.length);
+        temp[temp.length - 1] = t;
+        values = temp;
     }
 
     @Override
@@ -81,7 +65,7 @@ public class CustomList<T> implements Custom<T> {
     }
 
     @Override
-    public <T> boolean contains(T[] a, T num) {
+    public boolean contains(T[] a, T num) {
         for (T i : a) {
             if (i.equals(num)) {
                 return true;

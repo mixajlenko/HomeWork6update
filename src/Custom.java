@@ -10,5 +10,5 @@ public interface Custom<T> extends Iterable<T> {
 
     void update(int index, T t);
 
-    <T>boolean contains(T[] a, T num);
+    boolean contains(T[] a, T num);
 }
